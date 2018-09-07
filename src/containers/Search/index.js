@@ -34,16 +34,19 @@ class Search extends Component {
 
   onSearchTextChanged = e => {
     var searchText = e.target.value;
+    this.setState({ searchText });
     var doSearch = searchText.trim() !== '';
+    this.setState({ isLoading: doSearch});
+
+    if (this.state.searchTimeoutId !== 0) {
+      console.log('Cleared timeout');
+      clearTimeout(this.state.searchTimeoutId);
+    }
+
     if (doSearch) {
-      this.setState({ searchText, isLoading: doSearch});
-
-      if (this.state.searchTimeoutId !== 0) {
-        console.log('Cleared timeout');
-        clearTimeout(this.state.searchTimeoutId);
-      }
-
       this.setState({ searchTimeoutId: setTimeout(this.processSearch, 1000) });
+    } else {
+      this.setState({ searchResults: [] });
     }
   }
 
