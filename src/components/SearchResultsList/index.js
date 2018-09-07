@@ -17,6 +17,37 @@ const SearchResultsList = props => (
           <List.Header>
             { doc.title }
           </List.Header>
+          <List.Description>
+            <ul>
+              <li>
+                <b>Tipo: </b> { doc.type }
+              </li>
+              {
+                doc.author_name
+                &&
+                <li>
+                  <b>Autor(es): </b>
+                  { doc.author_name.join(', ') }
+                </li>
+              }
+              {
+                doc.publisher
+                &&
+                <li>
+                  <b>Editorial(es): </b>
+                  { doc.publisher.join(', ') }
+                </li>
+              }
+              {
+                doc.language
+                &&
+                <li>
+                  <b>Idioma(s): </b>
+                  { doc.language.join(', ') }
+                </li>
+              }
+            </ul>
+          </List.Description>
         </List.Content>
       </List.Item>
     ) }
