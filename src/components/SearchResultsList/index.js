@@ -1,5 +1,6 @@
 import React from 'react';
 import { List, Image } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
 import './SearchResultsList.css'
 
 const SearchResultsList = props => (
@@ -15,7 +16,9 @@ const SearchResultsList = props => (
         }
         <List.Content>
           <List.Header>
-            { doc.title }
+            <Link to={doc.key}>
+              { doc.title }
+            </Link>
           </List.Header>
           <List.Description>
             <ul>

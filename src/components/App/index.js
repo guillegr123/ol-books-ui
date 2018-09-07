@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Search from '../../containers/Search'
+import Main from '../../components/Main'
 import './App.css';
 
 class App extends Component {
@@ -10,7 +10,7 @@ class App extends Component {
           <h1 className="App-title">Biblioteca abierta</h1>
         </header>
         <div className="App-body">
-          <Search />
+          <Main />
         </div>
       </div>
     );
