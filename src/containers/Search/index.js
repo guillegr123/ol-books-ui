@@ -8,17 +8,16 @@ class Search extends Component {
     super(props);
     this.state = {
       isLoading: false,
-      searchText: ''
+      searchText: '',
+      searchTimeoutId: 0
     }
   }
 
-  onSearchTextChanged = e => {
-    var searchText = e.target.value;
-    var doSearch = searchText.trim() !== '';
-    this.setState({ searchText, isLoading: doSearch });
-    if (doSearch) {
-      searchText = searchText.replace(' ', '+');
-      axios.get(`http://openlibrary.org/search.json?q=${searchText}`)
+  processSearch = () => {
+    this.setState({ searchTimeoutId: 0 });
+    var { searchText } = this.state;
+    searchText = searchText.trim().replace(' ', '+');
+    axios.get(`http://openlibrary.org/search.json?q=${searchText}`)
         .then(res => {
           console.log(`Data obtained for "${searchText}"!`)
           return res.data;
@@ -28,6 +27,20 @@ class Search extends Component {
           console.log(data);
           this.setState({ isLoading: false });
         });
+  }
+
+  onSearchTextChanged = e => {
+    var searchText = e.target.value;
+    var doSearch = searchText.trim() !== '';
+    if (doSearch) {
+      this.setState({ searchText, isLoading: doSearch});
+
+      if (this.state.searchTimeoutId !== 0) {
+        console.log('Cleared timeout');
+        clearTimeout(this.state.searchTimeoutId);
+      }
+
+      this.setState({ searchTimeoutId: setTimeout(this.processSearch, 1000) });
     }
   }
 
