@@ -4,17 +4,16 @@
 
 .App-header {
   background-color: #222;
-  height: 3.6em;
-  padding: 20px;
+  padding: 1em;
   color: white;
+}
+
+.App-body {
+  padding-top: 1em;
 }
 
 .App-title {
   font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
 }
 
 @keyframes App-logo-spin {
