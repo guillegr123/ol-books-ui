@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
@@ -14,7 +15,16 @@ class App extends Component {
 
   onSearchTextChanged = e => {
     var searchText = e.target.value;
-    this.setState({ searchText, isLoading: searchText.trim() !== '' });
+    var doSearch = searchText.trim() !== '';
+    this.setState({ searchText, isLoading: doSearch });
+    if (doSearch) {
+      searchText = searchText.replace(' ', '+');
+      axios.get(`http://openlibrary.org/search.json?q=${searchText}`)
+        .then(res => {
+          console.log(res.data);
+          this.setState({ isLoading: false });
+        });
+    }
   }
 
   render() {
@@ -23,12 +33,11 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Biblioteca abierta</h1>
         </header>
-        <body className="App-body">
+        <div className="App-body">
           <Input
             loading={ this.state.isLoading }
             value={ this.state.searchText }
             onChange={ this.onSearchTextChanged }
-            iconPosition="right"
             placeholder="Buscar..." />
             <br />
             {
@@ -38,7 +47,7 @@ class App extends Component {
                 Buscando &quot;{ this.state.searchText }&quot;...
               </p>
             }
-        </body>
+        </div>
       </div>
     );
   }
