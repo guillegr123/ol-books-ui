@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Input } from 'semantic-ui-react'
+import { Input, Container } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import axios from 'axios';
+import SearchResultsList from '../../components/SearchResultsList'
+import './Search.css'
 
 class Search extends Component {
   constructor(props) {
@@ -9,7 +11,8 @@ class Search extends Component {
     this.state = {
       isLoading: false,
       searchText: '',
-      searchTimeoutId: 0
+      searchTimeoutId: 0,
+      searchResults: []
     }
   }
 
@@ -25,7 +28,7 @@ class Search extends Component {
         .then(data => {
           console.log(`Data read for "${searchText}"!`)
           console.log(data);
-          this.setState({ isLoading: false });
+          this.setState({ isLoading: false, searchResults: data.docs });
         });
   }
 
@@ -46,20 +49,24 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
-        <Input
-          loading={this.state.isLoading}
-          value={this.state.searchText}
-          onChange={this.onSearchTextChanged}
-          placeholder="Buscar..." />
-        <br />
-        {
-          this.state.isLoading
-          &&
-          <p>
-            Buscando &quot;{this.state.searchText}&quot;...
-          </p>
-        }</div>
+      <Container text className="search">
+        <div className="header">
+          <Input
+            loading={this.state.isLoading}
+            value={this.state.searchText}
+            onChange={this.onSearchTextChanged}
+            placeholder="Buscar..." />
+          <br />
+          {
+            this.state.isLoading
+            &&
+            <p>
+              Buscando &quot;{this.state.searchText}&quot;...
+            </p>
+          }
+        </div>
+        <SearchResultsList docs={ this.state.searchResults } />  
+      </Container>
     );
   }
 }

@@ -1,0 +1,9 @@
+.list .item img {
+  width: 10em;
+}
+
+.list .item .ui.image.placeholder {
+  background-color: gray;
+  width: 10em;
+  height: 13em;
+}
