@@ -16,7 +16,14 @@ const SearchResultsList = props => (
         }
         <List.Content>
           <List.Header>
-            <Link to={doc.key}>
+            <Link to={
+              {
+                pathname: doc.key,
+                itemData: {
+                  coverKey: doc.cover_edition_key
+                }
+              }
+            }>
               { doc.title }
             </Link>
           </List.Header>

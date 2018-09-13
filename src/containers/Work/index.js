@@ -33,8 +33,9 @@ class SingleSeries extends Component {
   }
 
   render() {
-    const doc = this.state.work;
-    const olid = this.state.olid;
+    let doc = this.state.work;
+    let olid = this.state.olid;
+    let itemData = this.props.location.itemData;
 
     return (
       <Container text>
@@ -43,9 +44,9 @@ class SingleSeries extends Component {
           &&
           <div>
             {
-              olid
+              itemData.coverKey
               ?
-              <img src={`http://covers.openlibrary.org/b/olid/${olid}-L.jpg`} alt={olid} />
+              <img src={`http://covers.openlibrary.org/b/olid/${itemData.coverKey}-L.jpg`} alt={itemData.coverKey} />
               :
               <div className="ui image placeholder" />
             }
