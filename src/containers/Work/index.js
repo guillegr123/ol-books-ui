@@ -2,20 +2,33 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Container } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
+import store from '../../store';
 
 class SingleSeries extends Component {
-  state = {
-    olid: null,
-    work: null
+  constructor(props) {
+    super(props);
+    this.state = {
+      olid: null,
+      work: null
+    };
   }
 
   componentDidMount() {
+    console.log('ComponentDidMount');
     const { olid } = this.props.match.params;
     axios.get(`http://openlibrary.org/works/${olid}.json`)
       .then(res => res.data)
       .then(work => {
+        console.log('Work obtained');
         console.log(work);
-        this.setState({ olid, work })
+        store.dispatch({
+          type: 'ADD_WORK_TO_HISTORY',
+          olid,
+          title: work.title
+        });
+        console.log('Set state');
+        this.setState({ olid, work });
+        console.log('State setted');
       });
   }
 

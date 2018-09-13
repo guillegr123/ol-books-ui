@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Input, Container } from 'semantic-ui-react'
 import 'semantic-ui-css/semantic.min.css';
 import axios from 'axios';
+import ViewHistory from '../../components/ViewHistory'
 import SearchResultsList from '../../components/SearchResultsList'
 import './Search.css'
 
@@ -68,7 +69,8 @@ class Search extends Component {
             </p>
           }
         </div>
-        <SearchResultsList docs={ this.state.searchResults } />  
+        <SearchResultsList docs={ this.state.searchResults } />
+        <ViewHistory />
       </Container>
     );
   }
