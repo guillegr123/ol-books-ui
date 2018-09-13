@@ -34,7 +34,6 @@ class SingleSeries extends Component {
 
   render() {
     let doc = this.state.work;
-    let olid = this.state.olid;
     let itemData = this.props.location.itemData;
 
     return (
